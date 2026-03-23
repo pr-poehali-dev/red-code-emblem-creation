@@ -29,14 +29,14 @@ const Index = () => {
         {/* Emblem badge */}
         <div style={{
           position: "relative",
-          width: "400px",
-          height: "400px",
+          width: "460px",
+          height: "460px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}>
           {/* Outer ring */}
-          <svg width="400" height="400" style={{ position: "absolute", top: 0, left: 0 }} viewBox="0 0 400 400">
+          <svg width="460" height="460" style={{ position: "absolute", top: 0, left: 0 }} viewBox="0 0 460 460" overflow="visible">
             <defs>
               <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#ff1a1a" />
@@ -50,18 +50,16 @@ const Index = () => {
                   <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
-              {/* Верхняя дуга: от левого (180°) до правого (0°) края по верху */}
-              <path id="topArc" d="M 10,200 A 190,190 0 0,1 390,200" />
-              {/* Нижняя дуга: от правого до левого по низу */}
-              <path id="bottomArc" d="M 390,200 A 190,190 0 0,1 10,200" />
+              {/* Верхняя дуга по радиусу 205 — текст идёт по верху */}
+              <path id="topArc" d="M 25,230 A 205,205 0 0,1 435,230" />
             </defs>
 
-            <circle cx="200" cy="200" r="195" fill="none" stroke="rgba(220,30,30,0.12)" strokeWidth="1" />
-            <circle cx="200" cy="200" r="185" fill="none" stroke="url(#ringGrad)" strokeWidth="2" filter="url(#glow)" />
-            <circle cx="200" cy="200" r="178" fill="none" stroke="rgba(220,30,30,0.3)" strokeWidth="0.5" />
+            <circle cx="230" cy="230" r="222" fill="none" stroke="rgba(220,30,30,0.12)" strokeWidth="1" />
+            <circle cx="230" cy="230" r="210" fill="none" stroke="url(#ringGrad)" strokeWidth="2" filter="url(#glow)" />
+            <circle cx="230" cy="230" r="202" fill="none" stroke="rgba(220,30,30,0.3)" strokeWidth="0.5" />
 
             {/* Текст по верхней дуге */}
-            <text fontFamily="'Oswald', sans-serif" fontSize="22" fontWeight="700" letterSpacing="6" fill="rgba(150,20,20,0.9)" textAnchor="middle">
+            <text fontFamily="'Oswald', sans-serif" fontSize="22" fontWeight="700" letterSpacing="5" fill="rgba(150,20,20,0.9)" textAnchor="middle">
               <textPath href="#topArc" startOffset="50%">
                 ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
               </textPath>
@@ -72,22 +70,22 @@ const Index = () => {
               const angle = (i * 360) / 60;
               const rad = (angle * Math.PI) / 180;
               const isMajor = i % 5 === 0;
-              const r1 = isMajor ? 170 : 173;
-              const r2 = 180;
+              const r1 = isMajor ? 193 : 197;
+              const r2 = 204;
               return (
                 <line
                   key={i}
-                  x1={200 + r1 * Math.cos(rad)}
-                  y1={200 + r1 * Math.sin(rad)}
-                  x2={200 + r2 * Math.cos(rad)}
-                  y2={200 + r2 * Math.sin(rad)}
+                  x1={230 + r1 * Math.cos(rad)}
+                  y1={230 + r1 * Math.sin(rad)}
+                  x2={230 + r2 * Math.cos(rad)}
+                  y2={230 + r2 * Math.sin(rad)}
                   stroke={isMajor ? "rgba(220,30,30,0.8)" : "rgba(220,30,30,0.3)"}
                   strokeWidth={isMajor ? 2 : 0.8}
                 />
               );
             })}
 
-            <circle cx="200" cy="200" r="162" fill="#fff8f8" stroke="rgba(200,20,20,0.4)" strokeWidth="1.5" />
+            <circle cx="230" cy="230" r="185" fill="#fff8f8" stroke="rgba(200,20,20,0.4)" strokeWidth="1.5" />
           </svg>
 
           {/* Heart + ECG SVG */}
@@ -161,7 +159,7 @@ const Index = () => {
                 textTransform: "uppercase",
                 lineHeight: 1,
                 filter: "drop-shadow(0 0 20px rgba(220,30,30,0.4))",
-                transform: "translateX(-36px)",
+                transform: "translateX(-60px)",
               }}>
                 КОД
               </h1>
