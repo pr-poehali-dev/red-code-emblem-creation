@@ -1,4 +1,4 @@
-const ECG_PATH = "M0,60 L30,60 L45,60 L55,20 L65,100 L75,10 L85,90 L95,55 L110,55 L140,55 L155,55 L165,15 L175,105 L185,5 L195,95 L205,55 L220,55 L260,55";
+const ECG_PATH = "M0,0 L15,0 L22,-18 L30,18 L38,-22 L46,16 L52,0 L70,0";
 
 const Index = () => {
   return (
@@ -11,148 +11,82 @@ const Index = () => {
         alignItems: "center",
         justifyContent: "center",
         fontFamily: "'Oswald', sans-serif",
-        overflow: "hidden",
-        position: "relative",
       }}
     >
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "24px" }}>
 
-
-      {/* Main emblem container */}
-      <div style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "0px",
-        position: "relative",
-        zIndex: 10,
-      }}>
-        {/* College name above emblem */}
+        {/* Надпись над эмблемой */}
         <div style={{
           fontSize: "18px",
           letterSpacing: "5px",
           color: "rgba(140,15,15,0.9)",
-          fontFamily: "'Oswald', sans-serif",
           fontWeight: 600,
           textTransform: "uppercase",
-          marginBottom: "20px",
           textAlign: "center",
         }}>
           ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
         </div>
 
-        {/* Emblem badge */}
-        <div style={{
-          position: "relative",
-          width: "340px",
-          height: "340px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}>
-          {/* Outer ring */}
-          <svg width="340" height="340" style={{ position: "absolute", top: 0, left: 0 }} viewBox="0 0 340 340">
-            <defs>
-              <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#ff1a1a" />
-                <stop offset="50%" stopColor="#cc0000" />
-                <stop offset="100%" stopColor="#880000" />
-              </linearGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="4" result="coloredBlur" />
-                <feMerge>
-                  <feMergeNode in="coloredBlur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
+        {/* Эмблема */}
+        <svg width="340" height="340" viewBox="0 0 340 340">
+          <defs>
+            <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ff2020" />
+              <stop offset="100%" stopColor="#8b0000" />
+            </linearGradient>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#cc0000" />
+              <stop offset="50%" stopColor="#ff3333" />
+              <stop offset="100%" stopColor="#880000" />
+            </linearGradient>
+            <filter id="shadow">
+              <feDropShadow dx="0" dy="2" stdDeviation="6" floodColor="rgba(180,0,0,0.25)" />
+            </filter>
+            {/* Дуга для надписи по кругу */}
+            <path id="outerArc" d="M 20,170 A 150,150 0 0,1 320,170" />
+            <path id="outerArcBottom" d="M 320,170 A 150,150 0 0,1 20,170" />
+          </defs>
 
-            <circle cx="170" cy="170" r="162" fill="none" stroke="rgba(220,30,30,0.15)" strokeWidth="1" />
-            <circle cx="170" cy="170" r="158" fill="none" stroke="url(#ringGrad)" strokeWidth="2" filter="url(#glow)" />
-            <circle cx="170" cy="170" r="152" fill="none" stroke="rgba(220,30,30,0.3)" strokeWidth="0.5" />
+          {/* Внешнее кольцо — толстое, с градиентом */}
+          <circle cx="170" cy="170" r="158" fill="none" stroke="url(#ringGrad)" strokeWidth="18" filter="url(#shadow)" />
 
-            {/* Tick marks */}
-            {Array.from({ length: 60 }).map((_, i) => {
-              const angle = (i * 360) / 60;
-              const rad = (angle * Math.PI) / 180;
-              const isMajor = i % 5 === 0;
-              const r1 = isMajor ? 145 : 148;
-              const r2 = 155;
-              return (
-                <line
-                  key={i}
-                  x1={170 + r1 * Math.cos(rad)}
-                  y1={170 + r1 * Math.sin(rad)}
-                  x2={170 + r2 * Math.cos(rad)}
-                  y2={170 + r2 * Math.sin(rad)}
-                  stroke={isMajor ? "rgba(220,30,30,0.8)" : "rgba(220,30,30,0.3)"}
-                  strokeWidth={isMajor ? 2 : 0.8}
-                />
-              );
-            })}
+          {/* Тонкое кольцо внутри толстого */}
+          <circle cx="170" cy="170" r="147" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" />
+          <circle cx="170" cy="170" r="168" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" />
 
-            <circle cx="170" cy="170" r="138" fill="#fff8f8" stroke="rgba(200,20,20,0.4)" strokeWidth="1.5" />
-          </svg>
+          {/* Внутренний белый круг */}
+          <circle cx="170" cy="170" r="132" fill="#ffffff" stroke="rgba(180,0,0,0.15)" strokeWidth="1" />
 
-          {/* Heart + ECG SVG */}
-          <svg
-            width="260"
-            height="240"
-            viewBox="0 0 260 240"
-            style={{ position: "relative", zIndex: 2, filter: "drop-shadow(0 0 20px rgba(220,30,30,0.6))" }}
-          >
-            <defs>
-              <linearGradient id="heartGrad" x1="50%" y1="0%" x2="50%" y2="100%">
-                <stop offset="0%" stopColor="#ff2020" />
-                <stop offset="100%" stopColor="#990000" />
-              </linearGradient>
-              <clipPath id="heartClip">
-                <path d="M130,200 C80,160 20,130 20,80 C20,45 45,20 80,20 C100,20 116,30 130,45 C144,30 160,20 180,20 C215,20 240,45 240,80 C240,130 180,160 130,200 Z" />
-              </clipPath>
-            </defs>
+          {/* Крест — вертикальная перекладина */}
+          <rect x="154" y="72" width="32" height="196" rx="8" fill="url(#redGrad)" opacity="0.9" />
+          {/* Крест — горизонтальная перекладина */}
+          <rect x="72" y="154" width="196" height="32" rx="8" fill="url(#redGrad)" opacity="0.9" />
 
-            {/* Heart shape */}
+          {/* ЭКГ поверх пересечения */}
+          <g transform="translate(100, 162)">
             <path
-              d="M130,200 C80,160 20,130 20,80 C20,45 45,20 80,20 C100,20 116,30 130,45 C144,30 160,20 180,20 C215,20 240,45 240,80 C240,130 180,160 130,200 Z"
-              fill="url(#heartGrad)"
-              opacity="0.15"
-            />
-            <path
-              d="M130,200 C80,160 20,130 20,80 C20,45 45,20 80,20 C100,20 116,30 130,45 C144,30 160,20 180,20 C215,20 240,45 240,80 C240,130 180,160 130,200 Z"
+              d={ECG_PATH}
               fill="none"
-              stroke="url(#heartGrad)"
-              strokeWidth="2.5"
+              stroke="#ffffff"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
+          </g>
 
-            {/* ECG line inside heart — static */}
-            <g clipPath="url(#heartClip)">
-              <path
-                d={ECG_PATH}
-                fill="none"
-                stroke="#ff2020"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                transform="translate(0, 55)"
-                style={{ filter: "drop-shadow(0 0 6px #ff0000)" }}
-              />
-            </g>
+          {/* Маленький круг в центре */}
+          <circle cx="170" cy="170" r="10" fill="#ffffff" stroke="url(#redGrad)" strokeWidth="3" />
 
-            {/* Heart glow dots */}
-            <circle cx="80" cy="38" r="4" fill="#ff3333" opacity="0.6" />
-            <circle cx="180" cy="38" r="4" fill="#ff3333" opacity="0.6" />
-          </svg>
-        </div>
+          {/* Точки на концах креста */}
+          <circle cx="170" cy="80" r="5" fill="#cc0000" />
+          <circle cx="170" cy="260" r="5" fill="#cc0000" />
+          <circle cx="80" cy="170" r="5" fill="#cc0000" />
+          <circle cx="260" cy="170" r="5" fill="#cc0000" />
+        </svg>
 
-        {/* Title */}
-        <div style={{
-          marginTop: "28px",
-          textAlign: "center",
-        }}>
-          <div style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "16px",
-          }}>
+        {/* КОД КРАСНЫЙ */}
+        <div style={{ textAlign: "center", marginTop: "-8px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <div style={{ height: "1px", width: "60px", background: "linear-gradient(to right, transparent, rgba(220,30,30,0.6))" }} />
             <h1 style={{
               fontSize: "52px",
@@ -165,13 +99,11 @@ const Index = () => {
               margin: 0,
               textTransform: "uppercase",
               lineHeight: 1,
-              filter: "drop-shadow(0 0 20px rgba(220,30,30,0.4))",
             }}>
               КОД
             </h1>
             <div style={{ height: "1px", width: "60px", background: "linear-gradient(to left, transparent, rgba(220,30,30,0.6))" }} />
           </div>
-
           <h2 style={{
             fontSize: "52px",
             fontWeight: 700,
@@ -180,13 +112,14 @@ const Index = () => {
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
-            margin: "0 0 12px",
+            margin: "0 0 0",
             textTransform: "uppercase",
             lineHeight: 1,
           }}>
             КРАСНЫЙ
           </h2>
         </div>
+
       </div>
     </div>
   );
