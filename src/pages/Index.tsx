@@ -5,7 +5,7 @@ const Index = () => {
     <div
       style={{
         minHeight: "100vh",
-        background: "radial-gradient(ellipse at 50% 30%, #1a0000 0%, #0a0000 60%, #000 100%)",
+        background: "radial-gradient(ellipse at 50% 30%, #fff5f5 0%, #fde8e8 60%, #f9d0d0 100%)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -19,7 +19,7 @@ const Index = () => {
       <div style={{
         position: "absolute",
         inset: 0,
-        backgroundImage: "linear-gradient(rgba(220,30,30,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(220,30,30,0.04) 1px, transparent 1px)",
+        backgroundImage: "linear-gradient(rgba(180,20,20,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(180,20,20,0.06) 1px, transparent 1px)",
         backgroundSize: "40px 40px",
         pointerEvents: "none",
       }} />
@@ -95,7 +95,7 @@ const Index = () => {
               );
             })}
 
-            <circle cx="170" cy="170" r="138" fill="#0d0000" stroke="rgba(200,20,20,0.4)" strokeWidth="1.5" />
+            <circle cx="170" cy="170" r="138" fill="#fff8f8" stroke="rgba(200,20,20,0.4)" strokeWidth="1.5" />
           </svg>
 
           {/* Heart + ECG SVG */}
