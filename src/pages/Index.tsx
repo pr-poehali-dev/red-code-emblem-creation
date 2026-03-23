@@ -52,9 +52,19 @@ const Index = () => {
               </filter>
             </defs>
 
-            <circle cx="170" cy="170" r="162" fill="none" stroke="rgba(220,30,30,0.15)" strokeWidth="1" />
+            <defs>
+              <path id="textCircle" d="M 170,170 m -163,0 a 163,163 0 1,1 326,0 a 163,163 0 1,1 -326,0" />
+            </defs>
+
+            <circle cx="170" cy="170" r="168" fill="none" stroke="rgba(220,30,30,0.12)" strokeWidth="1" />
             <circle cx="170" cy="170" r="158" fill="none" stroke="url(#ringGrad)" strokeWidth="2" filter="url(#glow)" />
             <circle cx="170" cy="170" r="152" fill="none" stroke="rgba(220,30,30,0.3)" strokeWidth="0.5" />
+
+            <text fontFamily="'Oswald', sans-serif" fontSize="13" fontWeight="600" letterSpacing="4" fill="rgba(150,20,20,0.85)" textAnchor="middle">
+              <textPath href="#textCircle" startOffset="50%">
+                ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ ✦ ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
+              </textPath>
+            </text>
 
             {/* Tick marks */}
             {Array.from({ length: 60 }).map((_, i) => {
@@ -134,18 +144,6 @@ const Index = () => {
           marginTop: "28px",
           textAlign: "center",
         }}>
-          <div style={{
-            fontSize: "13px",
-            letterSpacing: "8px",
-            color: "rgba(150,20,20,0.85)",
-            fontFamily: "'Rajdhani', sans-serif",
-            fontWeight: 600,
-            textTransform: "uppercase",
-            marginBottom: "8px",
-          }}>
-            ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
-          </div>
-
           <div style={{
             display: "flex",
             alignItems: "center",
