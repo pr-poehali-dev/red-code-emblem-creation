@@ -1,23 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-
 const ECG_PATH = "M0,60 L30,60 L45,60 L55,20 L65,100 L75,10 L85,90 L95,55 L110,55 L140,55 L155,55 L165,15 L175,105 L185,5 L195,95 L205,55 L220,55 L260,55";
 
 const Index = () => {
-  const [mounted, setMounted] = useState(false);
-  const [pulse, setPulse] = useState(false);
-  const pathRef = useRef<SVGPathElement>(null);
-
-  useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 100);
-    const interval = setInterval(() => {
-      setPulse(p => !p);
-    }, 1200);
-    return () => {
-      clearTimeout(t);
-      clearInterval(interval);
-    };
-  }, []);
-
   return (
     <div
       style={{
@@ -51,23 +34,17 @@ const Index = () => {
         height: "600px",
         background: "radial-gradient(circle, rgba(220,30,30,0.12) 0%, transparent 70%)",
         pointerEvents: "none",
-        animation: "glowPulse 2.4s ease-in-out infinite",
       }} />
 
       {/* Main emblem container */}
-      <div
-        style={{
-          opacity: mounted ? 1 : 0,
-          transform: mounted ? "translateY(0) scale(1)" : "translateY(30px) scale(0.95)",
-          transition: "all 0.9s cubic-bezier(0.16, 1, 0.3, 1)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "0px",
-          position: "relative",
-          zIndex: 10,
-        }}
-      >
+      <div style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "0px",
+        position: "relative",
+        zIndex: 10,
+      }}>
         {/* Emblem badge */}
         <div style={{
           position: "relative",
@@ -92,16 +69,8 @@ const Index = () => {
                   <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
-              <filter id="glowStrong">
-                <feGaussianBlur stdDeviation="8" result="coloredBlur" />
-                <feMerge>
-                  <feMergeNode in="coloredBlur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
             </defs>
 
-            {/* Outer decorative ring */}
             <circle cx="170" cy="170" r="162" fill="none" stroke="rgba(220,30,30,0.15)" strokeWidth="1" />
             <circle cx="170" cy="170" r="158" fill="none" stroke="url(#ringGrad)" strokeWidth="2" filter="url(#glow)" />
             <circle cx="170" cy="170" r="152" fill="none" stroke="rgba(220,30,30,0.3)" strokeWidth="0.5" />
@@ -126,7 +95,6 @@ const Index = () => {
               );
             })}
 
-            {/* Inner dark circle */}
             <circle cx="170" cy="170" r="138" fill="#0d0000" stroke="rgba(200,20,20,0.4)" strokeWidth="1.5" />
           </svg>
 
@@ -160,10 +128,9 @@ const Index = () => {
               strokeWidth="2.5"
             />
 
-            {/* ECG line inside heart */}
+            {/* ECG line inside heart — static */}
             <g clipPath="url(#heartClip)">
               <path
-                ref={pathRef}
                 d={ECG_PATH}
                 fill="none"
                 stroke="#ff2020"
@@ -171,33 +138,13 @@ const Index = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 transform="translate(0, 55)"
-                style={{
-                  filter: "drop-shadow(0 0 6px #ff0000)",
-                  strokeDasharray: 600,
-                  strokeDashoffset: 0,
-                  animation: "ecgDraw 1.2s linear infinite",
-                }}
+                style={{ filter: "drop-shadow(0 0 6px #ff0000)" }}
               />
             </g>
 
-            {/* Heart glow dots at top curves */}
-            <circle cx="80" cy="38" r="4" fill="#ff3333" opacity="0.6" style={{ animation: "blip 1.2s ease-in-out infinite" }} />
-            <circle cx="180" cy="38" r="4" fill="#ff3333" opacity="0.6" style={{ animation: "blip 1.2s ease-in-out infinite 0.2s" }} />
-          </svg>
-        </div>
-
-        {/* Cross icon below emblem circle - medical cross */}
-        <div style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%) translateY(-90px)",
-          opacity: 0.06,
-          zIndex: 1,
-        }}>
-          <svg width="80" height="80" viewBox="0 0 80 80">
-            <rect x="30" y="0" width="20" height="80" fill="#ff2020" rx="4" />
-            <rect x="0" y="30" width="80" height="20" fill="#ff2020" rx="4" />
+            {/* Heart glow dots */}
+            <circle cx="80" cy="38" r="4" fill="#ff3333" opacity="0.6" />
+            <circle cx="180" cy="38" r="4" fill="#ff3333" opacity="0.6" />
           </svg>
         </div>
 
@@ -205,9 +152,6 @@ const Index = () => {
         <div style={{
           marginTop: "28px",
           textAlign: "center",
-          opacity: mounted ? 1 : 0,
-          transform: mounted ? "translateY(0)" : "translateY(20px)",
-          transition: "all 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s",
         }}>
           <div style={{
             fontSize: "13px",
@@ -259,33 +203,8 @@ const Index = () => {
           }}>
             КРАСНЫЙ
           </h2>
-
-
         </div>
-
-
       </div>
-
-      <style>{`
-        @keyframes ecgDraw {
-          0% { stroke-dashoffset: 600; opacity: 1; }
-          70% { stroke-dashoffset: 0; opacity: 1; }
-          85% { stroke-dashoffset: 0; opacity: 0.8; }
-          100% { stroke-dashoffset: -600; opacity: 0; }
-        }
-        @keyframes glowPulse {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-          50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.7; }
-        }
-        @keyframes statusBlink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.2; }
-        }
-        @keyframes blip {
-          0%, 100% { opacity: 0.3; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.4); }
-        }
-      `}</style>
     </div>
   );
 };
