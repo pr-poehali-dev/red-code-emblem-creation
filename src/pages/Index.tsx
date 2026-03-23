@@ -29,14 +29,14 @@ const Index = () => {
         {/* Emblem badge */}
         <div style={{
           position: "relative",
-          width: "340px",
-          height: "340px",
+          width: "400px",
+          height: "400px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}>
           {/* Outer ring */}
-          <svg width="340" height="340" style={{ position: "absolute", top: 0, left: 0 }} viewBox="0 0 340 340">
+          <svg width="400" height="400" style={{ position: "absolute", top: 0, left: 0 }} viewBox="0 0 400 400">
             <defs>
               <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#ff1a1a" />
@@ -50,19 +50,20 @@ const Index = () => {
                   <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
+              {/* Верхняя дуга: от левого (180°) до правого (0°) края по верху */}
+              <path id="topArc" d="M 10,200 A 190,190 0 0,1 390,200" />
+              {/* Нижняя дуга: от правого до левого по низу */}
+              <path id="bottomArc" d="M 390,200 A 190,190 0 0,1 10,200" />
             </defs>
 
-            <defs>
-              <path id="textCircle" d="M 170,170 m -163,0 a 163,163 0 1,1 326,0 a 163,163 0 1,1 -326,0" />
-            </defs>
+            <circle cx="200" cy="200" r="195" fill="none" stroke="rgba(220,30,30,0.12)" strokeWidth="1" />
+            <circle cx="200" cy="200" r="185" fill="none" stroke="url(#ringGrad)" strokeWidth="2" filter="url(#glow)" />
+            <circle cx="200" cy="200" r="178" fill="none" stroke="rgba(220,30,30,0.3)" strokeWidth="0.5" />
 
-            <circle cx="170" cy="170" r="168" fill="none" stroke="rgba(220,30,30,0.12)" strokeWidth="1" />
-            <circle cx="170" cy="170" r="158" fill="none" stroke="url(#ringGrad)" strokeWidth="2" filter="url(#glow)" />
-            <circle cx="170" cy="170" r="152" fill="none" stroke="rgba(220,30,30,0.3)" strokeWidth="0.5" />
-
-            <text fontFamily="'Oswald', sans-serif" fontSize="13" fontWeight="600" letterSpacing="4" fill="rgba(150,20,20,0.85)" textAnchor="middle">
-              <textPath href="#textCircle" startOffset="50%">
-                ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ ✦ ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
+            {/* Текст по верхней дуге */}
+            <text fontFamily="'Oswald', sans-serif" fontSize="17" fontWeight="600" letterSpacing="5" fill="rgba(150,20,20,0.9)" textAnchor="middle">
+              <textPath href="#topArc" startOffset="50%">
+                ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
               </textPath>
             </text>
 
@@ -71,22 +72,22 @@ const Index = () => {
               const angle = (i * 360) / 60;
               const rad = (angle * Math.PI) / 180;
               const isMajor = i % 5 === 0;
-              const r1 = isMajor ? 145 : 148;
-              const r2 = 155;
+              const r1 = isMajor ? 170 : 173;
+              const r2 = 180;
               return (
                 <line
                   key={i}
-                  x1={170 + r1 * Math.cos(rad)}
-                  y1={170 + r1 * Math.sin(rad)}
-                  x2={170 + r2 * Math.cos(rad)}
-                  y2={170 + r2 * Math.sin(rad)}
+                  x1={200 + r1 * Math.cos(rad)}
+                  y1={200 + r1 * Math.sin(rad)}
+                  x2={200 + r2 * Math.cos(rad)}
+                  y2={200 + r2 * Math.sin(rad)}
                   stroke={isMajor ? "rgba(220,30,30,0.8)" : "rgba(220,30,30,0.3)"}
                   strokeWidth={isMajor ? 2 : 0.8}
                 />
               );
             })}
 
-            <circle cx="170" cy="170" r="138" fill="#fff8f8" stroke="rgba(200,20,20,0.4)" strokeWidth="1.5" />
+            <circle cx="200" cy="200" r="162" fill="#fff8f8" stroke="rgba(200,20,20,0.4)" strokeWidth="1.5" />
           </svg>
 
           {/* Heart + ECG SVG */}
@@ -144,44 +145,44 @@ const Index = () => {
           marginTop: "28px",
           textAlign: "center",
         }}>
-          <div style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "16px",
-          }}>
-            <div style={{ height: "1px", width: "60px", background: "linear-gradient(to right, transparent, rgba(220,30,30,0.6))" }} />
-            <h1 style={{
+          <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            {/* Линии по бокам от КОД */}
+            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+              <div style={{ height: "1px", width: "60px", background: "linear-gradient(to right, transparent, rgba(220,30,30,0.6))" }} />
+              <h1 style={{
+                fontSize: "52px",
+                fontWeight: 700,
+                letterSpacing: "6px",
+                background: "linear-gradient(135deg, #ff3333 0%, #ff6666 40%, #cc0000 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                margin: 0,
+                textTransform: "uppercase",
+                lineHeight: 1,
+                filter: "drop-shadow(0 0 20px rgba(220,30,30,0.4))",
+                transform: "translateX(-18px)",
+              }}>
+                КОД
+              </h1>
+              <div style={{ height: "1px", width: "60px", background: "linear-gradient(to left, transparent, rgba(220,30,30,0.6))" }} />
+            </div>
+
+            <h2 style={{
               fontSize: "52px",
               fontWeight: 700,
               letterSpacing: "6px",
-              background: "linear-gradient(135deg, #ff3333 0%, #ff6666 40%, #cc0000 100%)",
+              background: "linear-gradient(135deg, #cc0000 0%, #ff2020 60%, #990000 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              margin: 0,
+              margin: "0 0 12px",
               textTransform: "uppercase",
               lineHeight: 1,
-              filter: "drop-shadow(0 0 20px rgba(220,30,30,0.4))",
             }}>
-              КОД
-            </h1>
-            <div style={{ height: "1px", width: "60px", background: "linear-gradient(to left, transparent, rgba(220,30,30,0.6))" }} />
+              КРАСНЫЙ
+            </h2>
           </div>
-
-          <h2 style={{
-            fontSize: "52px",
-            fontWeight: 700,
-            letterSpacing: "6px",
-            background: "linear-gradient(135deg, #cc0000 0%, #ff2020 60%, #990000 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-            margin: "0 0 12px",
-            textTransform: "uppercase",
-            lineHeight: 1,
-          }}>
-            КРАСНЫЙ
-          </h2>
         </div>
       </div>
     </div>
