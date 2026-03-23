@@ -89,9 +89,10 @@ const Index = () => {
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <div style={{ height: "1px", width: "60px", background: "linear-gradient(to right, transparent, rgba(220,30,30,0.6))" }} />
             <h1 style={{
-              fontSize: "52px",
-              fontWeight: 700,
-              letterSpacing: "6px",
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: "72px",
+              fontWeight: 400,
+              letterSpacing: "10px",
               background: "linear-gradient(135deg, #ff3333 0%, #ff6666 40%, #cc0000 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -105,9 +106,10 @@ const Index = () => {
             <div style={{ height: "1px", width: "60px", background: "linear-gradient(to left, transparent, rgba(220,30,30,0.6))" }} />
           </div>
           <h2 style={{
-            fontSize: "52px",
-            fontWeight: 700,
-            letterSpacing: "6px",
+            fontFamily: "'Bebas Neue', sans-serif",
+            fontSize: "72px",
+            fontWeight: 400,
+            letterSpacing: "10px",
             background: "linear-gradient(135deg, #cc0000 0%, #ff2020 60%, #990000 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
