@@ -5,7 +5,7 @@ const Index = () => {
     <div
       style={{
         minHeight: "100vh",
-        background: "radial-gradient(ellipse at 50% 30%, #fff5f5 0%, #fde8e8 60%, #f9d0d0 100%)",
+        background: "#ffffff",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -15,26 +15,7 @@ const Index = () => {
         position: "relative",
       }}
     >
-      {/* Background grid */}
-      <div style={{
-        position: "absolute",
-        inset: 0,
-        backgroundImage: "linear-gradient(rgba(180,20,20,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(180,20,20,0.06) 1px, transparent 1px)",
-        backgroundSize: "40px 40px",
-        pointerEvents: "none",
-      }} />
 
-      {/* Glow blob */}
-      <div style={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "600px",
-        height: "600px",
-        background: "radial-gradient(circle, rgba(220,30,30,0.12) 0%, transparent 70%)",
-        pointerEvents: "none",
-      }} />
 
       {/* Main emblem container */}
       <div style={{
@@ -156,7 +137,7 @@ const Index = () => {
           <div style={{
             fontSize: "13px",
             letterSpacing: "8px",
-            color: "rgba(220,50,50,0.7)",
+            color: "rgba(150,20,20,0.85)",
             fontFamily: "'Rajdhani', sans-serif",
             fontWeight: 600,
             textTransform: "uppercase",
@@ -193,7 +174,7 @@ const Index = () => {
             fontSize: "52px",
             fontWeight: 700,
             letterSpacing: "6px",
-            background: "linear-gradient(135deg, #ffffff 0%, #ffaaaa 60%, #ff3333 100%)",
+            background: "linear-gradient(135deg, #cc0000 0%, #ff2020 60%, #990000 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
