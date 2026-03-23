@@ -1,6 +1,10 @@
 const ECG_PATH = "M0,60 L30,60 L45,60 L55,20 L65,100 L75,10 L85,90 L95,55 L110,55 L140,55 L155,55 L165,15 L175,105 L185,5 L195,95 L205,55 L220,55 L260,55";
 
 const Index = () => {
+  const cx = 240;
+  const cy = 240;
+  const textR = 218;
+
   return (
     <div
       style={{
@@ -15,101 +19,106 @@ const Index = () => {
         position: "relative",
       }}
     >
-
-
       {/* Main emblem container */}
       <div style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "0px",
         position: "relative",
         zIndex: 10,
       }}>
-        {/* Emblem badge */}
-        <div style={{
-          position: "relative",
-          width: "340px",
-          height: "340px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}>
-          {/* Outer ring */}
-          <svg width="340" height="340" style={{ position: "absolute", top: 0, left: 0 }} viewBox="0 0 340 340">
-            <defs>
-              <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#ff1a1a" />
-                <stop offset="50%" stopColor="#cc0000" />
-                <stop offset="100%" stopColor="#880000" />
-              </linearGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="4" result="coloredBlur" />
-                <feMerge>
-                  <feMergeNode in="coloredBlur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
 
-            <circle cx="170" cy="170" r="162" fill="none" stroke="rgba(220,30,30,0.15)" strokeWidth="1" />
-            <circle cx="170" cy="170" r="158" fill="none" stroke="url(#ringGrad)" strokeWidth="2" filter="url(#glow)" />
-            <circle cx="170" cy="170" r="152" fill="none" stroke="rgba(220,30,30,0.3)" strokeWidth="0.5" />
-
-            {/* Tick marks */}
-            {Array.from({ length: 60 }).map((_, i) => {
-              const angle = (i * 360) / 60;
-              const rad = (angle * Math.PI) / 180;
-              const isMajor = i % 5 === 0;
-              const r1 = isMajor ? 145 : 148;
-              const r2 = 155;
-              return (
-                <line
-                  key={i}
-                  x1={170 + r1 * Math.cos(rad)}
-                  y1={170 + r1 * Math.sin(rad)}
-                  x2={170 + r2 * Math.cos(rad)}
-                  y2={170 + r2 * Math.sin(rad)}
-                  stroke={isMajor ? "rgba(220,30,30,0.8)" : "rgba(220,30,30,0.3)"}
-                  strokeWidth={isMajor ? 2 : 0.8}
-                />
-              );
-            })}
-
-            <circle cx="170" cy="170" r="138" fill="#fff8f8" stroke="rgba(200,20,20,0.4)" strokeWidth="1.5" />
-          </svg>
-
-          {/* Heart + ECG SVG */}
-          <svg
-            width="260"
-            height="240"
-            viewBox="0 0 260 240"
-            style={{ position: "relative", zIndex: 2, filter: "drop-shadow(0 0 20px rgba(220,30,30,0.6))" }}
-          >
-            <defs>
-              <linearGradient id="heartGrad" x1="50%" y1="0%" x2="50%" y2="100%">
-                <stop offset="0%" stopColor="#ff2020" />
-                <stop offset="100%" stopColor="#990000" />
-              </linearGradient>
-              <clipPath id="heartClip">
-                <path d="M130,200 C80,160 20,130 20,80 C20,45 45,20 80,20 C100,20 116,30 130,45 C144,30 160,20 180,20 C215,20 240,45 240,80 C240,130 180,160 130,200 Z" />
-              </clipPath>
-            </defs>
-
-            {/* Heart shape */}
+        {/* Единый SVG: кольцо + текст по дуге + сердце */}
+        <svg width="480" height="480" viewBox="0 0 480 480">
+          <defs>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ff1a1a" />
+              <stop offset="50%" stopColor="#cc0000" />
+              <stop offset="100%" stopColor="#880000" />
+            </linearGradient>
+            <linearGradient id="heartGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+              <stop offset="0%" stopColor="#ff2020" />
+              <stop offset="100%" stopColor="#990000" />
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+              <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="heartGlow">
+              <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+              <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <clipPath id="heartClip">
+              <path d="M130,195 C80,155 20,125 20,75 C20,40 45,15 80,15 C100,15 116,25 130,40 C144,25 160,15 180,15 C215,15 240,40 240,75 C240,125 180,155 130,195 Z" />
+            </clipPath>
+            {/* Дуга для текста — верхняя полуокружность */}
             <path
-              d="M130,200 C80,160 20,130 20,80 C20,45 45,20 80,20 C100,20 116,30 130,45 C144,30 160,20 180,20 C215,20 240,45 240,80 C240,130 180,160 130,200 Z"
+              id="topArc"
+              d={`M ${cx - textR},${cy} A ${textR},${textR} 0 0,1 ${cx + textR},${cy}`}
+            />
+          </defs>
+
+          {/* Внешние кольца */}
+          <circle cx={cx} cy={cy} r="228" fill="none" stroke="rgba(220,30,30,0.1)" strokeWidth="1" />
+          <circle cx={cx} cy={cy} r="222" fill="none" stroke="url(#ringGrad)" strokeWidth="2.5" filter="url(#glow)" />
+          <circle cx={cx} cy={cy} r="215" fill="none" stroke="rgba(220,30,30,0.25)" strokeWidth="0.5" />
+
+          {/* Текст по верхней дуге */}
+          <text
+            fontFamily="'Oswald', sans-serif"
+            fontSize="21"
+            fontWeight="700"
+            letterSpacing="5"
+            fill="rgba(140,15,15,0.9)"
+            textAnchor="middle"
+          >
+            <textPath href="#topArc" startOffset="50%">
+              ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
+            </textPath>
+          </text>
+
+          {/* Деления на кольце */}
+          {Array.from({ length: 60 }).map((_, i) => {
+            const angle = (i * 360) / 60;
+            const rad = (angle * Math.PI) / 180;
+            const isMajor = i % 5 === 0;
+            const r1 = isMajor ? 205 : 208;
+            const r2 = 215;
+            return (
+              <line
+                key={i}
+                x1={cx + r1 * Math.cos(rad)}
+                y1={cy + r1 * Math.sin(rad)}
+                x2={cx + r2 * Math.cos(rad)}
+                y2={cy + r2 * Math.sin(rad)}
+                stroke={isMajor ? "rgba(220,30,30,0.8)" : "rgba(220,30,30,0.3)"}
+                strokeWidth={isMajor ? 2 : 0.8}
+              />
+            );
+          })}
+
+          {/* Внутренний круг эмблемы */}
+          <circle cx={cx} cy={cy} r="196" fill="#fff8f8" stroke="rgba(200,20,20,0.35)" strokeWidth="1.5" />
+
+          {/* Сердце + ЭКГ — смещено в центр SVG */}
+          <g transform={`translate(${cx - 130}, ${cy - 110})`} filter="url(#heartGlow)">
+            <path
+              d="M130,195 C80,155 20,125 20,75 C20,40 45,15 80,15 C100,15 116,25 130,40 C144,25 160,15 180,15 C215,15 240,40 240,75 C240,125 180,155 130,195 Z"
               fill="url(#heartGrad)"
               opacity="0.15"
             />
             <path
-              d="M130,200 C80,160 20,130 20,80 C20,45 45,20 80,20 C100,20 116,30 130,45 C144,30 160,20 180,20 C215,20 240,45 240,80 C240,130 180,160 130,200 Z"
+              d="M130,195 C80,155 20,125 20,75 C20,40 45,15 80,15 C100,15 116,25 130,40 C144,25 160,15 180,15 C215,15 240,40 240,75 C240,125 180,155 130,195 Z"
               fill="none"
               stroke="url(#heartGrad)"
               strokeWidth="2.5"
             />
-
-            {/* ECG line inside heart — static */}
             <g clipPath="url(#heartClip)">
               <path
                 d={ECG_PATH}
@@ -118,34 +127,17 @@ const Index = () => {
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                transform="translate(0, 55)"
+                transform="translate(0, 50)"
                 style={{ filter: "drop-shadow(0 0 6px #ff0000)" }}
               />
             </g>
+            <circle cx="80" cy="33" r="4" fill="#ff3333" opacity="0.6" />
+            <circle cx="180" cy="33" r="4" fill="#ff3333" opacity="0.6" />
+          </g>
+        </svg>
 
-            {/* Heart glow dots */}
-            <circle cx="80" cy="38" r="4" fill="#ff3333" opacity="0.6" />
-            <circle cx="180" cy="38" r="4" fill="#ff3333" opacity="0.6" />
-          </svg>
-        </div>
-
-        {/* Title */}
-        <div style={{
-          marginTop: "28px",
-          textAlign: "center",
-        }}>
-          <div style={{
-            fontSize: "13px",
-            letterSpacing: "8px",
-            color: "rgba(150,20,20,0.85)",
-            fontFamily: "'Rajdhani', sans-serif",
-            fontWeight: 600,
-            textTransform: "uppercase",
-            marginBottom: "8px",
-          }}>
-            ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
-          </div>
-
+        {/* Надпись КОД КРАСНЫЙ — без изменений */}
+        <div style={{ marginTop: "16px", textAlign: "center" }}>
           <div style={{
             display: "flex",
             alignItems: "center",
