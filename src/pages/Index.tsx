@@ -26,31 +26,17 @@ const Index = () => {
         position: "relative",
         zIndex: 10,
       }}>
-        {/* College name above emblem */}
-        <div style={{
-          fontSize: "18px",
-          letterSpacing: "5px",
-          color: "rgba(140,15,15,0.9)",
-          fontFamily: "'Oswald', sans-serif",
-          fontWeight: 600,
-          textTransform: "uppercase",
-          marginBottom: "20px",
-          textAlign: "center",
-        }}>
-          ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
-        </div>
-
         {/* Emblem badge */}
         <div style={{
           position: "relative",
-          width: "340px",
-          height: "340px",
+          width: "400px",
+          height: "400px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}>
-          {/* Outer ring */}
-          <svg width="340" height="340" style={{ position: "absolute", top: 0, left: 0 }} viewBox="0 0 340 340">
+          {/* Outer ring + arc text */}
+          <svg width="400" height="400" style={{ position: "absolute", top: 0, left: 0 }} viewBox="-30 -30 400 400">
             <defs>
               <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#ff1a1a" />
@@ -64,7 +50,23 @@ const Index = () => {
                   <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
+              {/* Верхняя дуга радиусом 172 — чуть снаружи кольца */}
+              <path id="topArc" d="M -2,170 A 172,172 0 0,1 342,170" />
             </defs>
+
+            {/* Текст по верхней дуге */}
+            <text
+              fontFamily="'Oswald', sans-serif"
+              fontSize="19"
+              fontWeight="600"
+              letterSpacing="4"
+              fill="rgba(140,15,15,0.92)"
+              textAnchor="middle"
+            >
+              <textPath href="#topArc" startOffset="50%">
+                ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
+              </textPath>
+            </text>
 
             <circle cx="170" cy="170" r="162" fill="none" stroke="rgba(220,30,30,0.15)" strokeWidth="1" />
             <circle cx="170" cy="170" r="158" fill="none" stroke="url(#ringGrad)" strokeWidth="2" filter="url(#glow)" />
