@@ -5,7 +5,7 @@ const Index = () => {
     <div
       style={{
         minHeight: "100vh",
-        background: "#ffffff",
+        background: "linear-gradient(135deg, #fff0f0 0%, #ffd6d6 40%, #ffb3b3 100%)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
