@@ -26,6 +26,20 @@ const Index = () => {
         position: "relative",
         zIndex: 10,
       }}>
+        {/* College name above emblem */}
+        <div style={{
+          fontSize: "18px",
+          letterSpacing: "5px",
+          color: "rgba(140,15,15,0.9)",
+          fontFamily: "'Oswald', sans-serif",
+          fontWeight: 600,
+          textTransform: "uppercase",
+          marginBottom: "20px",
+          textAlign: "center",
+        }}>
+          ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
+        </div>
+
         {/* Emblem badge */}
         <div style={{
           position: "relative",
@@ -134,18 +148,6 @@ const Index = () => {
           marginTop: "28px",
           textAlign: "center",
         }}>
-          <div style={{
-            fontSize: "13px",
-            letterSpacing: "8px",
-            color: "rgba(150,20,20,0.85)",
-            fontFamily: "'Rajdhani', sans-serif",
-            fontWeight: 600,
-            textTransform: "uppercase",
-            marginBottom: "8px",
-          }}>
-            ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
-          </div>
-
           <div style={{
             display: "flex",
             alignItems: "center",
