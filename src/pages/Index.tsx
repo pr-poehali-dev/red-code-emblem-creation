@@ -61,7 +61,7 @@ const Index = () => {
             <circle cx="200" cy="200" r="178" fill="none" stroke="rgba(220,30,30,0.3)" strokeWidth="0.5" />
 
             {/* Текст по верхней дуге */}
-            <text fontFamily="'Oswald', sans-serif" fontSize="17" fontWeight="600" letterSpacing="5" fill="rgba(150,20,20,0.9)" textAnchor="middle">
+            <text fontFamily="'Oswald', sans-serif" fontSize="22" fontWeight="700" letterSpacing="6" fill="rgba(150,20,20,0.9)" textAnchor="middle">
               <textPath href="#topArc" startOffset="50%">
                 ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
               </textPath>
@@ -161,7 +161,7 @@ const Index = () => {
                 textTransform: "uppercase",
                 lineHeight: 1,
                 filter: "drop-shadow(0 0 20px rgba(220,30,30,0.4))",
-                transform: "translateX(-18px)",
+                transform: "translateX(-36px)",
               }}>
                 КОД
               </h1>
