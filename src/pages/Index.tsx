@@ -13,22 +13,10 @@ const Index = () => {
         fontFamily: "'Oswald', sans-serif",
       }}
     >
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "24px" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
 
-        {/* Надпись над эмблемой */}
-        <div style={{
-          fontSize: "18px",
-          letterSpacing: "5px",
-          color: "rgba(140,15,15,0.9)",
-          fontWeight: 600,
-          textTransform: "uppercase",
-          textAlign: "center",
-        }}>
-          ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
-        </div>
-
-        {/* Эмблема */}
-        <svg width="340" height="340" viewBox="0 0 340 340">
+        {/* Эмблема — SVG увеличен чтобы текст по дуге поместился */}
+        <svg width="420" height="420" viewBox="-40 -40 420 420">
           <defs>
             <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#ff2020" />
@@ -42,27 +30,39 @@ const Index = () => {
             <filter id="shadow">
               <feDropShadow dx="0" dy="2" stdDeviation="6" floodColor="rgba(180,0,0,0.25)" />
             </filter>
-            {/* Дуга для надписи по кругу */}
-            <path id="outerArc" d="M 20,170 A 150,150 0 0,1 320,170" />
-            <path id="outerArcBottom" d="M 320,170 A 150,150 0 0,1 20,170" />
+            {/* Дуга текста — радиус 185, верхняя полуокружность */}
+            <path id="topArc" d="M -15,170 A 185,185 0 0,1 355,170" />
           </defs>
+
+          {/* Текст по верхней дуге */}
+          <text
+            fontFamily="'Oswald', sans-serif"
+            fontSize="20"
+            fontWeight="600"
+            letterSpacing="4.5"
+            fill="rgba(140,15,15,0.92)"
+            textAnchor="middle"
+          >
+            <textPath href="#topArc" startOffset="50%">
+              ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
+            </textPath>
+          </text>
 
           {/* Внешнее кольцо — толстое, с градиентом */}
           <circle cx="170" cy="170" r="158" fill="none" stroke="url(#ringGrad)" strokeWidth="18" filter="url(#shadow)" />
 
-          {/* Тонкое кольцо внутри толстого */}
+          {/* Тонкие белые линии по краям кольца */}
           <circle cx="170" cy="170" r="147" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" />
           <circle cx="170" cy="170" r="168" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" />
 
           {/* Внутренний белый круг */}
           <circle cx="170" cy="170" r="132" fill="#ffffff" stroke="rgba(180,0,0,0.15)" strokeWidth="1" />
 
-          {/* Крест — вертикальная перекладина */}
+          {/* Крест */}
           <rect x="154" y="72" width="32" height="196" rx="8" fill="url(#redGrad)" opacity="0.9" />
-          {/* Крест — горизонтальная перекладина */}
           <rect x="72" y="154" width="196" height="32" rx="8" fill="url(#redGrad)" opacity="0.9" />
 
-          {/* ЭКГ поверх пересечения */}
+          {/* ЭКГ поверх перекладины */}
           <g transform="translate(100, 162)">
             <path
               d={ECG_PATH}
@@ -74,7 +74,7 @@ const Index = () => {
             />
           </g>
 
-          {/* Маленький круг в центре */}
+          {/* Круг в центре */}
           <circle cx="170" cy="170" r="10" fill="#ffffff" stroke="url(#redGrad)" strokeWidth="3" />
 
           {/* Точки на концах креста */}
