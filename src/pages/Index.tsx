@@ -218,7 +218,7 @@ const Index = () => {
             textTransform: "uppercase",
             marginBottom: "8px",
           }}>
-            МЕДИЦИНСКАЯ СЛУЖБА
+            ГОРЛОВСКИЙ МЕДИЦИНСКИЙ КОЛЛЕДЖ
           </div>
 
           <div style={{
@@ -260,53 +260,10 @@ const Index = () => {
             КРАСНЫЙ
           </h2>
 
-          <div style={{
-            fontSize: "11px",
-            letterSpacing: "4px",
-            color: "rgba(180,180,180,0.4)",
-            fontFamily: "'Rajdhani', sans-serif",
-            textTransform: "uppercase",
-          }}>
-            CODE RED · EMERGENCY RESPONSE
-          </div>
+
         </div>
 
-        {/* Status indicator */}
-        <div style={{
-          marginTop: "36px",
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-          opacity: mounted ? 1 : 0,
-          transition: "opacity 1.2s ease 0.6s",
-        }}>
-          <div style={{
-            width: "8px",
-            height: "8px",
-            borderRadius: "50%",
-            background: "#ff2020",
-            animation: "statusBlink 1.2s ease-in-out infinite",
-            boxShadow: "0 0 12px #ff2020, 0 0 4px #ff2020",
-          }} />
-          <span style={{
-            fontSize: "11px",
-            letterSpacing: "4px",
-            color: "rgba(255,50,50,0.6)",
-            fontFamily: "'Rajdhani', sans-serif",
-            fontWeight: 600,
-            textTransform: "uppercase",
-          }}>
-            СИСТЕМА АКТИВНА
-          </span>
-          <div style={{
-            width: "8px",
-            height: "8px",
-            borderRadius: "50%",
-            background: "#ff2020",
-            animation: "statusBlink 1.2s ease-in-out infinite 0.6s",
-            boxShadow: "0 0 12px #ff2020, 0 0 4px #ff2020",
-          }} />
-        </div>
+
       </div>
 
       <style>{`
